@@ -45,7 +45,7 @@ class KstechPanelProvider extends PanelProvider
             ])
 
             ->plugins([
-                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
+                FilamentShieldPlugin::make(),
             ])
 
 
