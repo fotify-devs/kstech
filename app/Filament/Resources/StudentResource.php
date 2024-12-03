@@ -17,6 +17,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\StudentApprovedMail;
 use App\Mail\StudentRejectedMail;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 
 class StudentResource extends Resource
@@ -250,6 +251,8 @@ class StudentResource extends Resource
                             ->success()
                             ->send();
                     }),
+
+                    ExportBulkAction::make()
             ]);
     }
 

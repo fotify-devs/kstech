@@ -1,257 +1,162 @@
-<div class="container mx-auto p-6">
-    @if($existingStudent)
-        <div class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-2xl font-bold mb-4">Your Registration Details</h2>
-            
-            <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                    <strong>Registration Number:</strong> 
-                    {{ $existingStudent->registration_number }}
-                </div>
-                <div>
-                    <strong>Name:</strong> 
-                    {{ $existingStudent->first_name }} {{ $existingStudent->last_name }}
-                </div>
-                <div>
-                    <strong>Email:</strong> 
-                    {{ $existingStudent->email }}
-                </div>
-                <div>
-                    <strong>Phone:</strong> 
-                    {{ $existingStudent->phone }}
-                </div>
-                <div>
-                    <strong>Course:</strong> 
-                    {{ $existingStudent->course->name }}
-                </div>
-                <div>
-                    <strong>Education Level:</strong> 
-                    {{ $existingStudent->educationLevel->name }}
-                </div>
-                <div>
-                    <strong>Status:</strong> 
-                    <span class="
-                        @if($existingStudent->status == 'pending') text-yellow-600
-                        @elseif($existingStudent->status == 'approved') text-green-600
-                        @else text-red-600
-                        @endif
-                    ">
-                        {{ ucfirst($existingStudent->status) }}
-                    </span>
-                </div>
-            </div>
+<div class="p-6 bg-white shadow-md rounded-lg">
+    @if($has_existing_registration)
+        <div class="text-center">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Registration Status</h2>
+            <p class="text-gray-600">You have already submitted a registration. Please wait for approval.</p>
         </div>
     @else
-        <form wire:submit.prevent="submitRegistration" class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-2xl font-bold mb-4">Student Registration</h2>
+        <form wire:submit.prevent="submitRegistration" class="space-y-6">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Student Registration</h2>
             
-            <!-- Personal Information -->
-            <div class="grid md:grid-cols-2 gap-4">
+            {{-- Personal Information --}}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="block mb-2">First Name</label>
-                    <input 
-                        type="text" 
-                        wire:model="first_name" 
-                        class="w-full border rounded-md p-2"
-                    >
-                    @error('first_name') 
-                        <span class="text-red-500">{{ $message }}</span> 
-                    @enderror
+                    <label class="block text-gray-700 font-bold mb-2">First Name</label>
+                    <input type="text" wire:model="first_name" class="w-full border-gray-300 rounded-md shadow-sm" required>
+                    @error('first_name') <span class="text-red-500">{{ $message }}</span> @enderror
                 </div>
                 
                 <div>
-                    <label class="block mb-2">Last Name</label>
-                    <input 
-                        type="text" 
-                        wire:model="last_name" 
-                        class="w-full border rounded-md p-2"
-                    >
-                    @error('last_name') 
-                        <span class="text-red-500">{{ $message }}</span> 
-                    @enderror
-                </div>
-                
-                <div>
-                    <label class="block mb-2">Email</label>
-                    <input 
-                        type="email" 
-                        wire:model="email" 
-                        class="w-full border rounded-md p-2"
-                    >
-                    @error('email') 
-                        <span class="text-red-500">{{ $message }}</span> 
-                    @enderror
-                </div>
-                
-                <div>
-                    <label class="block mb-2">Phone Number</label>
-                    <input 
-                        type="tel" 
-                        wire:model="phone" 
-                        class="w-full border rounded-md p-2"
-                        placeholder="254712345678"
-                    >
-                    @error('phone') 
-                        <span class="text-red-500">{{ $message }}</span> 
-                    @enderror
+                    <label class="block text-gray-700 font-bold mb-2">Last Name</label>
+                    <input type="text" wire:model="last_name" class="w-full border-gray-300 rounded-md shadow-sm" required>
+                    @error('last_name') <span class="text-red-500">{{ $message }}</span> @enderror
                 </div>
             </div>
 
 
-            <!-- Academic Details -->
-            <div class="mt-6">
-                <h3 class="text-xl font-semibold mb-4">Academic Details</h3>
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block mb-2">Preferred Course</label>
-                        <select wire:model="course_id" class="w-full border rounded-md p-2">
-                            <option value="">Select a Course</option>
-                            @foreach($courses as $course)
-                                <option value="{{ $course->id }}">{{ $course->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('course_id') 
-                            <span class="text-red-500">{{ $message }}</span> 
-                        @enderror
-                    </div>
-
-
-                    <div>
-                        <label class="block mb-2">Highest Education Level</label>
-                        <select wire:model="education_level_id" class="w-full border rounded-md p-2">
-                            <option value="">Select Education Level</option>
-                            @foreach($education_levels as $level)
-                                <option value="{{ $level->id }}">{{ $level->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('education_level_id') 
-                            <span class="text-red-500">{{ $message }}</span> 
-                        @enderror
-                    </div>
-
-
-                    <div>
-                        <label class="block mb-2">Mean Grade</label>
-                        <select wire:model="mean_grade" class="w-full border rounded-md p-2">
-                            <option value="">Select Mean Grade</option>
-                            @foreach($mean_grades as $key => $value)
-                                <option value="{{ $key }}">{{ $value }}</option>
-                            @endforeach
-                        </select>
-                        @error('mean_grade') 
-                            <span class="text-red-500">{{ $message }}</span> 
-                        @enderror
-                    </div>
-
-
-                    <div>
-                        <label class="block mb-2">Course Level</label>
-                        <select wire:model="course_level" class="w-full border rounded-md p-2">
-                            <option value="">Select Course Level</option>
-                            @foreach($course_levels as $key => $value)
-                                <option value="{{ $key }}">{{ $value }}</option>
-                            @endforeach
-                        </select>
-                        @error('course_level') 
-                            <span class="text-red-500">{{ $message }}</span> 
-                        @enderror
-                    </div>
+            {{-- Contact Information --}}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-700 font-bold mb-2">Email</label>
+                    <input type="email" wire:model="email" class="w-full border-gray-300 rounded-md shadow-sm" required>
+                    @error('email') <span class="text-red-500">{{ $message }}</span> @enderror
                 </div>
-            </div>
-
-
-            <!-- Additional Information -->
-            <div class="mt-6">
-                <h3 class="text-xl font-semibold mb-4">Additional Information</h3>
                 
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block mb-2">Fee Sponsor</label>
-                        <select wire:model="fee_sponsor" class="w-full border rounded-md p-2">
-                            <option value="">Select Fee Sponsor</option>
-                            @foreach($fee_sponsors as $key => $value)
-                                <option value="{{ $key }}">{{ $value }}</option>
-                            @endforeach
-                        </select>
-                        @error('fee_sponsor') 
-                            <span class="text-red-500">{{ $message }}</span> 
-                        @enderror
-                    </div>
+                <div>
+                    <label class="block text-gray-700 font-bold mb-2">Phone Number</label>
+                    <input type="tel" wire:model="phone" class="w-full border-gray-300 rounded-md shadow-sm" required>
+                    @error('phone') <span class="text-red-500
+Continuing from where we left off, here’s the complete code for the `student-registration.blade.php` and the `student-profile.blade.php` views:
 
 
-                    <div>
-                        <label class="block mb-2">Nationality</label>
-                        <input 
-                            type="text" 
-                            wire:model="nationality" 
-                            class="w-full border rounded-md p-2"
-                            readonly
-                        >
-                        @error('nationality') 
-                            <span class="text-red-500">{{ $message }}</span> 
-                        @enderror
-                    </div>
-
-
-                    <div>
-                        <label class="block mb-2">Next of Kin Name</label>
-                        <input 
-                            type="text" 
-                            wire:model="next_of_kin_name" 
-                            class="w-full border rounded-md p-2"
-                        >
-                        @error('next_of_kin_name') 
-                            <span class="text-red-500">{{ $message }}</span> 
-                        @enderror
-                    </div>
-
-
-                    <div>
-                        <label class="block mb-2">Next of Kin Phone</label>
-                        <input 
-                            type="tel" 
-                            wire:model="next_of_kin_number" 
-                            class="w-full border rounded-md p-2"
-                            placeholder="254712345678"
-                        >
-                        @error('next_of_kin_number') 
-                            <span class="text-red-500">{{ $message }}</span> 
-                        @enderror
-                    </div>
-
-
-                    <div>
-                        <label class="block mb-2">How did you hear about us?</label>
-                        <select wire:model="heard_about" class="w-full border rounded-md p-2">
-                            <option value="">Select an Option</option>
-                            <option value="TV Advertisement">TV Advertisement</option>
-                            <option value="Radio">Radio</option>
-                            <option value="Social Media">Social Media</option>
-                            <option value="Friend/Referral">Friend/Referral</option>
-                        </select>
-                        @error('heard_about') 
-                            <span class="text-red-500">{{ $message }}</span> 
-                        @enderror
-                    </div>
+### `resources/views/livewire/student-registration.blade.php`
+```blade
+                    <span class="text-red-500">{{ $message }}</span> @enderror
                 </div>
             </div>
 
 
-            <div class="mt-6">
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md">
+            {{-- Academic Details --}}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-700 font-bold mb-2">Preferred Course</label>
+                    <select wire:model="course_id" class="w-full border-gray-300 rounded-md shadow-sm" required>
+                        <option value="">Select Course</option>
+                        @foreach($courses as $course)
+                            <option value="{{ $course->id }}">{{ $course->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('course_id') <span class="text-red-500">{{ $message }}</span> @enderror
+                </div>
+
+
+                <div>
+                    <label class="block text-gray-700 font-bold mb-2">Education Level</label>
+                    <select wire:model="education_level_id" class="w-full border-gray-300 rounded-md shadow-sm" required>
+                        <option value="">Select Education Level</option>
+                        @foreach($education_levels as $education_level)
+                            <option value="{{ $education_level->id }}">{{ $education_level->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('education_level_id') <span class="text-red-500">{{ $message }}</span> @enderror
+                </div>
+            </div>
+
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-700 font-bold mb-2">Mean Grade</label>
+                    <select wire:model="mean_grade" class="w-full border-gray-300 rounded-md shadow-sm" required>
+                        <option value="">Select Mean Grade</option>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                    </select>
+                    @error('mean_grade') <span class="text-red-500">{{ $message }}</span> @enderror
+                </div>
+
+
+                <div>
+                    <label class="block text-gray-700 font-bold mb-2">Course Level</label>
+                    <select wire:model="course_level" class="w-full border-gray-300 rounded-md shadow-sm" required>
+                        <option value="">Select Course Level</option>
+                        <option value="Certificate">Certificate</option>
+                        <option value="Diploma">Diploma</option>
+                        <option value="Degree">Degree</option>
+                    </select>
+                    @error('course_level') <span class="text-red-500">{{ $message }}</span> @enderror
+                </div>
+            </div>
+
+
+            {{-- Additional Information --}}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-700 font-bold mb-2">Fee Sponsor</label>
+                    <select wire:model="fee_sponsor" class="w-full border-gray-300 rounded-md shadow-sm" required>
+                        <option value="">Select Fee Sponsor</option>
+                        <option value="Self">Self</option>
+                        <option value="Parents">Parents</option>
+                        <option value="Sponsor">Sponsor</option>
+                    </select>
+                    @error('fee_sponsor') <span class="text-red-500">{{ $message }}</span> @enderror
+                </div>
+
+
+                <div>
+                    <label class="block text-gray-700 font-bold mb-2">Next of Kin Name</label>
+                    <input type="text" wire:model="next_of_kin_name" class="w-full border-gray-300 rounded-md shadow-sm" required>
+                    @error('next_of_kin_name') <span class="text-red-500">{{ $message }}</span> @enderror
+                </div>
+            </div>
+
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-700 font-bold mb-2">Next of Kin Phone</label>
+                    <input type="tel" wire:model="next_of_kin_number" class="w-full border-gray-300 rounded-md shadow-sm" required>
+                    @error('next_of_kin_number') <span class="text-red-500">{{ $message }}</span> @enderror
+                </div>
+
+
+                <div>
+                    <label class="block text-gray-700 font-bold mb-2">Heard About Us</label>
+                    <select wire:model="heard_about" class="w-full border-gray-300 rounded-md shadow-sm">
+                        <option value="">Select</option>
+                        <option value="TV Advertisement">TV Advertisement</option>
+                        <option value="Radio">Radio</option>
+                        <option value="Social Media">Social Media</option>
+                        <option value="Friend/Referral">Friend/Referral</option>
+                    </select>
+                    @error('heard_about') <span class="text-red-500">{{ $message }}</span> @enderror
+                </div>
+            </div>
+
+
+            <div class="flex justify-center">
+                <button type="submit" class="mt-4 px-4 py-2 bg-blue-600 text-white font-bold rounded-md shadow hover:bg-blue-700">
                     Submit Registration
                 </button>
-                @if (session()->has('success'))
-                    <div class="mt-4 text-green-600">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                @if (session()->has('error'))
-                    <div class="mt-4 text-red-600">
-                        {{ session('error') }}
-                    </div>
-                @endif
             </div>
+
+
+            @if(session()->has('success'))
+                <div class="mt-4 text-green-500">
+                    {{ session('success') }}
+                </div>
+            @endif
         </form>
     @endif
 </div>

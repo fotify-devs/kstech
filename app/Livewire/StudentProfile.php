@@ -2,35 +2,23 @@
 
 namespace App\Livewire;
 
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use App\Models\Student;
 
+use App\Models\Student;
+use Illuminate\Support\Facades\Auth;
 class StudentProfile extends Component
 {
-    public $student;
-    public $existingStudent;
+    public $student = null;
 
-    // Allow passing student data from parent component
-    public function mount($student = null)
+
+    public function mount()
     {
-        if ($student) {
-            $this->student = $student;
-        } else {
-            $this->existingStudent = Student::where('email', Auth::user()->email)->first();
-        }
+        $this->student = Student::where('email', Auth::user()->email)->first();
     }
+
 
     public function render()
     {
-        return view('livewire.student-profile', [
-            'student' => $this->student
-        ]);
+        return view('livewire.student-profile');
     }
-
-        // Method to handle any profile-specific actions
-        public function updatePersonalInfo()
-        {
-            // Implement logic to update personal information
-        }
 }

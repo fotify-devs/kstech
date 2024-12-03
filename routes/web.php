@@ -1,11 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
-use App\Livewire\StudentRegistration;
-use App\Livewire\StudentProfile;
-
-Route::view('/', 'welcome');
+Route::view('/', 'layouts.app');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -17,10 +15,3 @@ Route::view('profile', 'profile')
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/student-registration', StudentRegistration::class)
-        ->name('student.registration');
-    
-    Route::get('/student/profile', StudentProfile::class)
-        ->name('student.profile');
-});
