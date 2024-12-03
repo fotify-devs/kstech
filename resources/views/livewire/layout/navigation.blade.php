@@ -1,4 +1,23 @@
-<div x-data="themeManager()" 
+<?php
+
+use App\Livewire\Actions\Logout;
+use Livewire\Volt\Component;
+
+new class extends Component
+{
+    /**
+     * Log the current user out of the application.
+     */
+    public function logout(Logout $logout): void
+    {
+        $logout();
+
+        $this->redirect('/', navigate: true);
+    }
+}; ?>
+
+
+<div x-data="themeManager()"
      x-init="initTheme()"
      @theme-toggled.window="handleThemeToggle($event.detail)">
 
@@ -17,8 +36,8 @@
             </div>
 
             <!-- Theme Toggle -->
-            <button 
-                wire:click="toggleTheme" 
+            <button
+                wire:click="toggleTheme"
                 class="text-gray-600 dark:text-white hover:text-violet-600 dark:hover:text-violet-400"
             >
                 <svg x-show="!isDarkMode" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -39,10 +58,9 @@
     <nav class="bg-white dark:bg-gray-800 shadow-md">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <!-- Logo -->
-            <a href="" class="flex items-center">
-                <img src="{{ asset('assets/images/logo/front-logo.png') }}" alt="FundraiserLogo" class="w-40">
+            <a href="{{ route('dashboard') }}" wire:navigate  class="flex items-center">
+                <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
             </a>
-
             <!-- Desktop Navigation -->
             <div class="hidden lg:flex items-center space-x-6">
                 <a href="" class="text-gray-800 dark:text-white hover:text-violet-600 dark:hover:text-violet-400">Home</a>
@@ -51,7 +69,7 @@
                 <a href="" class="text-gray-800 dark:text-white hover:text-violet-600 dark:hover:text-violet-400">Resources</a>
                 <a href="" class="text-gray-800 dark:text-white hover:text-violet-600 dark:hover:text-violet-400">Gallery</a>
                 <a href="" class="text-gray-800 dark:text-white hover:text-violet-600 dark:hover:text-violet-400">About Us</a>
-                
+
                 <!-- Donate Button -->
                 <a href="" class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition">
                     Donate Now
@@ -62,8 +80,9 @@
                     <div class="hidden sm:flex sm:items-center sm:ms-6">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
-                                <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-700 hover:text-gray-800 dark:hover:text-gray-200 focus:outline-none transition ease-in-out duration-150">
-                                    <div>{{ Auth::user()->name }}</div>
+                                <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                    <div x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
+
                                     <div class="ms-1">
                                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -73,18 +92,16 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('profile.edit')">
+                                <x-dropdown-link :href="route('profile')" wire:navigate>
                                     {{ __('Profile') }}
                                 </x-dropdown-link>
 
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <x-dropdown-link :href="route('logout')"
-                                        onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                <!-- Authentication -->
+                                <button wire:click="logout" class="w-full text-start">
+                                    <x-dropdown-link>
                                         {{ __('Log Out') }}
                                     </x-dropdown-link>
-                                </form>
+                                </button>
                             </x-slot>
                         </x-dropdown>
                     </div>
@@ -96,7 +113,7 @@
                     </div>
                     <a href="{{ route('register') }}"
                         class="relative inline-flex items-center justify-center px-4 py-2 text-sm font-bold text-white transition-all duration-200 bg-purple-900 font-pj focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 rounded-lg"
-                        role="button">Register 
+                        role="button">Register
                     </a>
                 </div>
             @endif
@@ -119,11 +136,13 @@
     <div class="fixed inset-0 bg-white dark:bg-gray-900 z-50">
         <div class="container mx-auto py-8 px-4">
             <div class="flex justify-between items-center mb-8">
-                <img src="{{ asset('assets/images/logo/front-logo.png') }}" alt="FundraiserLogo" class="w-40">
+                <a href="{{ route('dashboard') }}" wire:navigate  class="flex items-center">
+                    <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                </a>
                 <div class="flex items-center space-x-4">
                     <!-- Theme Toggle in Mobile Menu -->
-                    <button 
-                        wire:click="toggleTheme" 
+                    <button
+                        wire:click="toggleTheme"
                         class="text-gray-600 dark:text-white hover:text-violet-600 dark:hover:text-violet-400"
                     >
                         <svg x-show="!isDarkMode" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15">
@@ -161,6 +180,26 @@
                     Donate Now
                 </a>
             </div>
+
+            <div class="pt-4 pb-1 border-t border-gray-200">
+                <div class="px-4">
+                    <div class="font-medium text-base text-gray-800" x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
+                    <div class="font-medium text-sm text-gray-500">{{ auth()->user()->email }}</div>
+                </div>
+
+                <div class="mt-3 space-y-1">
+                    <x-responsive-nav-link :href="route('profile')" wire:navigate>
+                        {{ __('Profile') }}
+                    </x-responsive-nav-link>
+
+                    <!-- Authentication -->
+                    <button wire:click="logout" class="w-full text-start">
+                        <x-responsive-nav-link>
+                            {{ __('Log Out') }}
+                        </x-responsive-nav-link>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     @endif
@@ -169,20 +208,20 @@
         function themeManager() {
             return {
                 isDarkMode: false,
-                
+
                 initTheme() {
                     // Retrieve stored theme preference
                     const storedTheme = localStorage.getItem('learning-site-theme');
                     this.isDarkMode = storedTheme === 'dark';
                     this.applyTheme();
                 },
-                
+
                 handleThemeToggle(isDark) {
                     this.isDarkMode = isDark;
                     this.applyTheme();
                     localStorage.setItem('learning-site-theme', isDark ? 'dark' : 'light');
                 },
-                
+
                 applyTheme() {
                     document.documentElement.classList.toggle('dark', this.isDarkMode);
                 }
