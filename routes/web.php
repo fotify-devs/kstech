@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MpesaController;
 
 Route::view('/', 'layouts.app');
 
@@ -15,3 +15,8 @@ Route::view('profile', 'profile')
 
 require __DIR__.'/auth.php';
 
+
+Route::post('/mpesa/callback', [MpesaController::class, 'handleCallback'])->name('mpesa.callback');
+Route::get('/mpesa/query/{checkoutRequestId}', [MpesaController::class, 'queryTransactionStatus']);
+
+Route::post('/mpesa/stk-push', [MpesaController::class, 'initiateSTKPush'])->name('mpesa.stk-push');

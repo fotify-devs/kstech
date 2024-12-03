@@ -72,14 +72,14 @@
                     <input
                         x-model="phoneNumber"
                         type="tel"
-                        placeholder="Enter Safaricom Number (e.g., 0707070707)"
+                        placeholder="Enter Safaricom Number +2547"
                         class="w-full px-3 py-2 border rounded-md"
                     >
                 </div>
 
 
                 <div class="mb-4">
-                    <p class="text-sm text-gray-600">Registration Fee: KSh 1</p>
+                    <p class="text-sm text-gray-600">Registration Fee: KSh 1200</p>
                 </div>
 
 

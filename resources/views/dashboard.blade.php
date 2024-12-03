@@ -17,6 +17,9 @@
                     {{-- Render Livewire Components --}}
                     @if ($student = App\Models\Student::where('email', Auth::user()->email)->first())
                         <livewire:student-profile />
+                        <div class="container mx-auto mt-10">
+                            <livewire:mpesa-payment />
+                        </div>
                     @else
                         <livewire:student-registration />
                     @endif
