@@ -23,6 +23,10 @@
         <!-- Navigation  -->
         <livewire:layout.navigation />
 
+        <livewire:featured-gallery />
+        
+        {{-- Other homepage content --}}
+
         <!-- Page Content -->
         <main>
             @yield('content')
