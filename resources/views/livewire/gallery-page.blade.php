@@ -1,4 +1,3 @@
-{{-- resources/views/livewire/gallery-page.blade.php --}}
 <div class="container mx-auto px-4 py-12">
     <h1 class="text-4xl font-bold text-center mb-10 text-gray-800">Our Gallery</h1>
 

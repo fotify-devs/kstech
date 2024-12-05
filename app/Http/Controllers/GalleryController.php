@@ -8,7 +8,7 @@ class GalleryController extends Controller
 {
     public function index(): View
     {
-        return view('pages.gallery', [
+        return view('layouts.pages.gallery', [
             'metaTitle' => 'Our Gallery',
             'metaDescription' => 'Explore our featured and latest gallery images',
         ]);

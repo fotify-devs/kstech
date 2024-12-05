@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MpesaController;
 
-Route::view('/', 'layouts.app');
+Route::view('/', 'layouts.pages.main');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
 
 Route::view('dashboard', 'dashboard')
