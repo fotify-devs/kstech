@@ -5,7 +5,7 @@ namespace App\Livewire;
 use App\Models\Gallery;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\Attributes\Layout;
+
 
 class GalleryPage extends Component
 {
@@ -14,7 +14,7 @@ class GalleryPage extends Component
 
     public $filter = 'all';
 
-    #[Layout('components.layouts.app')]
+
     public function render()
     {
         $query = Gallery::query();

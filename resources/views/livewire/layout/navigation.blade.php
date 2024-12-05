@@ -67,7 +67,7 @@ new class extends Component
                 <a href="" class="text-gray-800 dark:text-white hover:text-violet-600 dark:hover:text-violet-400">Start Fundraiser</a>
                 <a href="" class="text-gray-800 dark:text-white hover:text-violet-600 dark:hover:text-violet-400">Campaigns</a>
                 <a href="" class="text-gray-800 dark:text-white hover:text-violet-600 dark:hover:text-violet-400">Resources</a>
-                <a href="" class="text-gray-800 dark:text-white hover:text-violet-600 dark:hover:text-violet-400">Gallery</a>
+                <a href="{{ route('gallery.index') }}" class="text-gray-800 dark:text-white hover:text-violet-600 dark:hover:text-violet-400">Gallery</a>
                 <a href="" class="text-gray-800 dark:text-white hover:text-violet-600 dark:hover:text-violet-400">About Us</a>
 
                 <!-- Donate Button -->

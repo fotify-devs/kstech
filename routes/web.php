@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Livewire\GalleryPage;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MpesaController;
 
 Route::view('/', 'layouts.app');
-Route::get('/gallery', GalleryPage::class)->name('gallery-page');
+Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
