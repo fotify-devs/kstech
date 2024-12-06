@@ -1,15 +1,24 @@
 @extends('layouts.app')
 
-   @section('content')
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        {{-- Hero Section --}}
-        <livewire:hero-section />
-        
-        {{-- Featured Gallery --}}
-        <livewire:featured-gallery />
 
-        {{-- About Section --}}
+@section('content')
+    <div class="py-6 md:py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            {{-- Hero Section --}}
+            <div class="mb-8 md:mb-12">
+                <livewire:hero-section />
+            </div>
+
+            {{-- Featured Gallery --}}
+            <div class="mb-8 md:mb-12">
+                <livewire:featured-gallery />
+            </div>
+
+
+            {{-- About Section  --}}
+            {{-- <div class="mb-8 md:mb-12">
+                <livewire:about-section />
+            </div> --}}
         </div>
     </div>
 @endsection
