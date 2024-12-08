@@ -58,12 +58,12 @@ new class extends Component
     <nav class="bg-white dark:bg-gray-800 shadow-md">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <!-- Logo -->
-            <a href="{{ route('dashboard') }}" wire:navigate  class="flex items-center">
+            <a href="{{ url('/') }}" wire:navigate  class="flex items-center">
                 <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
             </a>
             <!-- Desktop Navigation -->
             <div class="hidden lg:flex items-center space-x-6">
-                <a href="" class="text-gray-800 dark:text-white hover:text-violet-600 dark:hover:text-violet-400">Home</a>
+                <a href="{{ url('/') }}" class="text-gray-800 dark:text-white hover:text-violet-600 dark:hover:text-violet-400">Home</a>
                 <a href="" class="text-gray-800 dark:text-white hover:text-violet-600 dark:hover:text-violet-400">Start Fundraiser</a>
                 <a href="" class="text-gray-800 dark:text-white hover:text-violet-600 dark:hover:text-violet-400">Campaigns</a>
                 <a href="" class="text-gray-800 dark:text-white hover:text-violet-600 dark:hover:text-violet-400">Resources</a>
@@ -136,7 +136,7 @@ new class extends Component
     <div class="fixed inset-0 bg-white dark:bg-gray-900 z-50">
         <div class="container mx-auto py-8 px-4">
             <div class="flex justify-between items-center mb-8">
-                <a href="{{ route('dashboard') }}" wire:navigate  class="flex items-center">
+                <a href="{{ url('/') }}" wire:navigate  class="flex items-center">
                     <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                 </a>
                 <div class="flex items-center space-x-4">
@@ -168,7 +168,7 @@ new class extends Component
             </div>
 
             <div class="space-y-4">
-                <a href="" class="block text-gray-800 dark:text-white text-xl py-2 border-b border-gray-200 dark:border-gray-700">Home</a>
+                <a href="{{ url('/') }}" class="block text-gray-800 dark:text-white text-xl py-2 border-b border-gray-200 dark:border-gray-700">Home</a>
                 <a href="" class="block text-gray-800 dark:text-white text-xl py-2 border-b border-gray-200 dark:border-gray-700">Start Fundraiser</a>
                 <a href="" class="block text-gray-800 dark:text-white text-xl py-2 border-b border-gray-200 dark:border-gray-700">Campaigns</a>
                 <a href="" class="block text-gray-800 dark:text-white text-xl py-2 border-b border-gray-200 dark:border-gray-700">Resources</a>

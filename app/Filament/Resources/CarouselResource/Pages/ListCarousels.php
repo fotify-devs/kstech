@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\GalleryResource\Pages;
+namespace App\Filament\Resources\CarouselResource\Pages;
 
-use App\Filament\Resources\GalleryResource;
+use App\Filament\Resources\CarouselResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListGalleries extends ListRecords
+class ListCarousels extends ListRecords
 {
-    protected static string $resource = GalleryResource::class;
+    protected static string $resource = CarouselResource::class;
 
     protected function getHeaderActions(): array
     {

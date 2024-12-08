@@ -10,8 +10,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class GalleryResource extends Resource
 {
@@ -92,9 +90,6 @@ class GalleryResource extends Resource
     {
         return [
             'index' => Pages\ManageGalleries::route('/'),
-            // 'index' => Pages\ListGalleries::route('/'),
-            // 'create' => Pages\CreateGallery::route('/create'),
-            // 'edit' => Pages\EditGallery::route('/{record}/edit'),
         ];
     }
 }

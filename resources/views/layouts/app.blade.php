@@ -27,14 +27,11 @@
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
         {{-- Navigation Component --}}
         <livewire:layout.navigation />
-
-
         {{-- Main Content --}}
         <main>
             @yield('content')
         </main>
-
-
+        <div>
         {{-- Footer Component --}}
         <x-footer />
     </div>

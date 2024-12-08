@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MpesaController;
+use App\Http\Controllers\AboutController;
 
 Route::view('/', 'layouts.pages.main');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
+Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

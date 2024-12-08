@@ -1,3 +1,164 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Custom CSS */
+    :root {
+        --marquee-speed: 40s;
+        --logo-size: 150px;
+        --card-gap: 2rem;
+        --overlay-bg: rgba(0, 0, 0, 0.7);
+        --transition-speed: 0.3s;
+    }
+
+
+    .collaborators-marquee-container {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        background: linear-gradient(
+            90deg, 
+            rgba(255,255,255,1) 0%, 
+            rgba(245,245,245,0.9) 50%, 
+            rgba(255,255,255,1) 100%
+        );
+        padding: 2rem 0;
+    }
+
+
+    .marquee-wrapper {
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+
+    .marquee-inner {
+        display: flex;
+        width: fit-content;
+    }
+
+
+    .marquee-content {
+        display: flex;
+        align-items: center;
+        gap: var(--card-gap);
+        animation: marquee var(--marquee-speed) linear infinite;
+        will-change: transform;
+    }
+
+
+    .collaborator-card {
+        flex: 0 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all var(--transition-speed) ease;
+    }
+
+
+    .collaborator-logo-wrapper {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: all var(--transition-speed) ease;
+    }
+
+
+    .collaborator-link,
+    .collaborator-logo-static {
+        display: block;
+        position: relative;
+        width: var(--logo-size);
+        height: var(--logo-size);
+        overflow: hidden;
+        border-radius: 12px;
+    }
+
+
+    .collaborator-logo {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transition: transform var(--transition-speed) ease;
+    }
+
+
+    .collaborator-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--overlay-bg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity var(--transition-speed) ease;
+        color: white;
+        text-align: center;
+        padding: 0.5rem;
+    }
+
+
+    /* Interaction Effects */
+    .collaborator-logo-wrapper:hover .collaborator-logo {
+        transform: scale(1.1);
+    }
+
+
+    .collaborator-link:hover .collaborator-overlay {
+        opacity: 1;
+    }
+
+
+    .collaborator-card:hover {
+        transform: translateY(-10px);
+    }
+
+
+    /* Responsive Adjustments */
+    @media (max-width: 1200px) {
+        :root {
+            --logo-size: 120px;
+            --card-gap: 1.5rem;
+            --marquee-speed: 30s;
+        }
+    }
+
+
+    @media (max-width: 768px) {
+        :root {
+            --logo-size: 100px;
+            --card-gap: 1rem;
+            --marquee-speed: 20s;
+        }
+    }
+
+
+    @media (max-width: 480px) {
+        :root {
+            --logo-size: 80px;
+            --card-gap: 0.5rem;
+            --marquee-speed: 15s;
+        }
+    }
+
+
+    /* Marquee Animation */
+    @keyframes marquee {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+
+    /* Pause on Hover */
+    .marquee-content:hover {
+        animation-play-state: paused;
+    }

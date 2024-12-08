@@ -26,10 +26,10 @@ class MpesaController extends Controller
             );
 
             // Store initial transaction details
-            $transaction = MpesaTransaction::create([
-                'merchant_request_id' => $response['MerchantRequestID'],
-                'checkout_request_id' => $response['CheckoutRequestID']
-            ]);
+            // $transaction = MpesaTransaction::create([
+            //     'merchant_request_id' => $response['MerchantRequestID'],
+            //     'checkout_request_id' => $response['CheckoutRequestID']
+            // ]);
 
             return response()->json([
                 'success' => true,
