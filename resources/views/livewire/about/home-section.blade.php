@@ -1,18 +1,18 @@
-<section class="py-16 dark:bg-dark">
+<section class="py-16">
     <div class="container mx-auto px-4">
         @if($about)
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <!-- Text Content -->
                 <div class="space-y-6">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
                         {{ $about->heading }}
                     </h2>
                     
-                    <h3 class="text-xl md:text-2xl text-gray-700 dark:text-gray-300">
+                    <h3 class="text-xl md:text-2xl text-gray-700">
                         {{ $about->sub_heading }}
                     </h3>
                     
-                    <div class="prose max-w-none text-gray-600 dark:text-gray-400">
+                    <div class="prose max-w-none text-gray-600">
                         <p>{{ $limitedAboutText }}</p>
                     </div>
                     
@@ -55,8 +55,8 @@
                 </div>
             </div>
         @else
-            <div class="text-center py-12 bg-gray-100 dark:bg-gray-800">
-                <p class="text-xl text-gray-600 dark:text-gray-400">About content not available</p>
+            <div class="text-center py-12 bg-gray-100">
+                <p class="text-xl text-gray-600">About content not available</p>
             </div>
         @endif
     </div>
