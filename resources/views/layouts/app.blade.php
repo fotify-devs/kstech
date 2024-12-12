@@ -6,10 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    {{-- Fetch settings globally --}}
+    @php
+        $settings = \App\Models\Setting::first() ?? new \App\Models\Setting();
+    @endphp
 
-    <title>{{ $metaTitle ?? config('app.name') }}</title>
-    <meta name="description" content="{{ $metaDescription ?? 'Default description' }}">
 
+    <title>{{ $settings->site_name ?? config('app.name', 'Laravel') }}</title>
+
+
+    {{-- Favicon Handling --}}
+    @if ($settings->favicon)
+        <link rel="icon" type="image/png" href="{{ Storage::url($settings->favicon) }}">
+    @else
+        <link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}">
+    @endif
+
+
+    {{-- SEO Meta Tags --}}
+    <meta name="description" content="{{ $settings->site_description ?? '' }}">
+
+
+    {{-- Open Graph Tags --}}
+    <meta property="og:site_name" content="{{ $settings->site_name ?? config('app.name') }}">
+    <meta property="og:description" content="{{ $settings->site_description ?? '' }}">
+
+    {{-- Logo for Social Sharing --}}
+    @if ($settings->site_logo)
+        <meta property="og:image" content="{{ Storage::url($settings->site_logo) }}">
+    @endif
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -32,13 +57,14 @@
             @yield('content')
         </main>
         <div>
-        {{-- Footer Component --}}
-        <x-footer />
-    </div>
+            {{-- Footer Component --}}
+            <livewire:frontend.footer />
+
+        </div>
 
 
-    @livewireScripts
-    @stack('scripts')
+        @livewireScripts
+        @stack('scripts')
 </body>
 
 </html>
